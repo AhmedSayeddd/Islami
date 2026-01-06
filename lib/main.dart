@@ -3,7 +3,7 @@ import 'package:islami/screen/home/home_screen.dart';
 import 'package:islami/introduction_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
