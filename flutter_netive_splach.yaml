@@ -1,0 +1,13 @@
+flutter_native_splash:
+android:true
+ios:true
+web:false
+color:#111111
+background_image:"assets/images/splash.png"
+image:"assets/images/islami_ic.png"
+branding:"assets/images/Islami.png"
+fullscreen: true
+
+android_12:
+image:"assets/images/islami_ic.png"
+branding:"assets/images/Islami.png"
