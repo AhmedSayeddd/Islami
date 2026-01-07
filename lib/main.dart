@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:islami/core/cache_helper.dart';
 import 'package:islami/screen/home/home_screen.dart';
 import 'package:islami/introduction_screen.dart';
 import 'package:islami/screen/sura_details/sura_details_screen.dart';
 
-void main() {
-  runApp( MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,13 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: IntroductionScreens.routeName,
-      routes: {IntroductionScreens.routeName: (context) => IntroductionScreens(),
-      HomeScreen.routeName: (context) => HomeScreen(),
-      SuraDetailsScreen.routeName: (context) => SuraDetailsScreen(),
+      initialRoute: CacheHelper().getBool('introduction') == true
+          ? HomeScreen.routeName
+          : IntroductionScreens.routeName,
+      routes: {
+        IntroductionScreens.routeName: (context) => IntroductionScreens(),
+        HomeScreen.routeName: (context) => HomeScreen(),
+        SuraDetailsScreen.routeName: (context) => SuraDetailsScreen(),
       },
     );
   }
 }
-
-
