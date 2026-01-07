@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islami/core/app_colors.dart';
+import 'package:islami/core/cache_helper.dart';
 import 'package:islami/models/suar_model.dart';
 import 'package:islami/screen/home/widget/recently_itam.dart';
 import 'package:islami/screen/home/widget/sura_itam.dart';
@@ -359,6 +360,8 @@ class QuranTab extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
+    List<int> displayMostRecent = CacheHelper.getList("items");
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -405,48 +408,37 @@ class QuranTab extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Text(
-              "Most Recently",
-              style: TextStyle(
-                fontFamily: "Janna",
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.wihte,
+            if (displayMostRecent.isNotEmpty) ...[
+              Text(
+                "Most Recently",
+                style: TextStyle(
+                  fontFamily: "Janna",
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.wihte,
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            SizedBox(
-              height: 155,
-              child: ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(width: 12),
-                itemCount: 10,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        SuraDetailsScreen.routeName,
-                        arguments: SuraModel(
-                          nameAr: surasName[index],
-                          nameEn: surasNameEnglish[index],
-                          verses: surasVersesCount[index].toString(),
-                          index: index + 1,
-                        ),
-                      );
-                    },
-                    child: RecentlyItam(
+              SizedBox(height: 10),
+              SizedBox(
+                height: 155,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(width: 12),
+                  itemCount: displayMostRecent.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return RecentlyItam(
                       suraModel: SuraModel(
-                        nameAr: surasName[index],
-                        nameEn: surasNameEnglish[index],
-                        verses: surasVersesCount[index].toString(),
-                        index: index + 1,
+                        nameAr: surasName[displayMostRecent[index]],
+                        nameEn: surasNameEnglish[displayMostRecent[index]],
+                        verses: surasVersesCount[displayMostRecent[index]]
+                            .toString(),
+                        index: displayMostRecent[index] + 1,
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
+            ],
             SizedBox(height: 10),
             Text(
               "Suras List",
@@ -474,6 +466,7 @@ class QuranTab extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
+                      CacheHelper.saveList(index);
                       Navigator.pushNamed(
                         context,
                         SuraDetailsScreen.routeName,

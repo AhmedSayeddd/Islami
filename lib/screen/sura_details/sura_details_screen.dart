@@ -5,6 +5,7 @@ import 'package:islami/core/app_style.dart';
 import 'package:islami/models/suar_model.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   SuraDetailsScreen({super.key});
   static const String routeName = "SuraDetailsScreen";
 
@@ -68,6 +69,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
     List<String> suraLines = suraFile.split("\n");
     verses = suraLines;
     setState(() {});
+    // ignore: avoid_print
     print(verses);
   }
 }
