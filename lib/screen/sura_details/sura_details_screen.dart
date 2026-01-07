@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:islami/core/app_colors.dart';
+import 'package:islami/core/app_style.dart';
+import 'package:islami/models/suar_model.dart';
 
 class SuraDetailsScreen extends StatelessWidget {
   const SuraDetailsScreen({super.key});
@@ -6,6 +9,40 @@ class SuraDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    var modle = ModalRoute.of(context)?.settings.arguments as SuraModel;
+    return Scaffold(
+      backgroundColor: AppColors.black,
+      appBar: AppBar(
+        title: Text(modle.nameEn, style: AppStyle.bodyStyle),
+        iconTheme: IconThemeData(color: AppColors.primary),
+        centerTitle: true,
+        backgroundColor: AppColors.black,
+      ),
+      body: SizedBox(
+        width: double.infinity,
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            Image.asset("assets/images/sura_bg.png", fit: BoxFit.cover),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 17, left: 70, right: 72),
+                  child: Text(modle.nameAr, style: AppStyle.titleStyle),
+                ),
+                SizedBox(height: 42),
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (context, index) =>
+                        Center(child: Text("data", style: AppStyle.bodyStyle)),
+                  ),
+                ),
+                SizedBox(height: 100),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
