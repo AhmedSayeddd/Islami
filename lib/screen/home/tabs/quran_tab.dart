@@ -3,6 +3,7 @@ import 'package:islami/core/app_colors.dart';
 import 'package:islami/models/suar_model.dart';
 import 'package:islami/screen/home/widget/recently_itam.dart';
 import 'package:islami/screen/home/widget/sura_itam.dart';
+import 'package:islami/screen/sura_details/sura_details_screen.dart';
 
 // ignore: must_be_immutable
 class QuranTab extends StatelessWidget {
@@ -421,12 +422,26 @@ class QuranTab extends StatelessWidget {
                 itemCount: 10,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return RecentlyItam(
-                    suraModel: SuraModel(
-                      nameAr: surasName[index],
-                      nameEn: surasNameEnglish[index],
-                      verses: surasVersesCount[index].toString(),
-                      index: index + 1,
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        SuraDetailsScreen.routeName,
+                        arguments: SuraModel(
+                          nameAr: surasName[index],
+                          nameEn: surasNameEnglish[index],
+                          verses: surasVersesCount[index].toString(),
+                          index: index + 1,
+                        ),
+                      );
+                    },
+                    child: RecentlyItam(
+                      suraModel: SuraModel(
+                        nameAr: surasName[index],
+                        nameEn: surasNameEnglish[index],
+                        verses: surasVersesCount[index].toString(),
+                        index: index + 1,
+                      ),
                     ),
                   );
                 },
@@ -457,12 +472,26 @@ class QuranTab extends StatelessWidget {
 
                 itemCount: surasName.length,
                 itemBuilder: (context, index) {
-                  return SuraItam(
-                    suraModel: SuraModel(
-                      nameAr: surasName[index],
-                      nameEn: surasNameEnglish[index],
-                      verses: surasVersesCount[index].toString(),
-                      index: index + 1,
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        SuraDetailsScreen.routeName,
+                        arguments: SuraModel(
+                          nameAr: surasName[index],
+                          nameEn: surasNameEnglish[index],
+                          verses: surasVersesCount[index].toString(),
+                          index: index + 1,
+                        ),
+                      );
+                    },
+                    child: SuraItam(
+                      suraModel: SuraModel(
+                        nameAr: surasName[index],
+                        nameEn: surasNameEnglish[index],
+                        verses: surasVersesCount[index].toString(),
+                        index: index + 1,
+                      ),
                     ),
                   );
                 },
