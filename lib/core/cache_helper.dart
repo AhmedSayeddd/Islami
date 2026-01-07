@@ -14,4 +14,20 @@ class CacheHelper {
   bool? getBool(String key) {
     return prefs.getBool(key);
   }
+
+  static Future<void> saveList(int index) async {
+    // ignore: unused_local_variable
+    var previousList = getList("items");
+    previousList.add(index);
+    var data = previousList.map((e) => e.toString()).toList() ?? [];
+    await prefs.setStringList('items', data);
+  }
+
+  static List<int> getList(String key) {
+    final List<String>? data = prefs.getStringList(key);
+    if (data == null) {
+      return <int>[];
+    }
+    return data.map((e) => int.tryParse(e) ?? 0).toSet().toList();
+  }
 }

@@ -28,12 +28,18 @@ class RecentlyItam extends StatelessWidget {
                 SizedBox(height: 12),
                 Text(
                   suraModel.nameEn,
-                  style: AppStyle.titleStyle.copyWith(color: AppColors.black),
+                  style: AppStyle.titleStyle.copyWith(
+                    color: AppColors.black,
+                    fontSize: 20,
+                  ),
                 ),
                 SizedBox(height: 8),
                 Text(
                   suraModel.nameAr,
-                  style: AppStyle.titleStyle.copyWith(color: AppColors.black),
+                  style: AppStyle.titleStyle.copyWith(
+                    color: AppColors.black,
+                    fontSize: 20,
+                  ),
                 ),
                 SizedBox(height: 12),
                 Text(
