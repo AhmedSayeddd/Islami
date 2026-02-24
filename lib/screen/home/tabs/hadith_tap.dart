@@ -48,7 +48,7 @@ class _HadethTabState extends State<HadethTab> {
                         children: [
                           Text(
                             model.title,
-                            style: AppStyle.bodyStyle?.copyWith(
+                            style: AppStyle.bodyStyle.copyWith(
                               fontSize: 24,
                               color: Colors.black,
                             ),
@@ -61,7 +61,7 @@ class _HadethTabState extends State<HadethTab> {
                                   onTap: () {
                                     Navigator.pushNamed(
                                       context,
-                                      HadethDetails.routeName,
+                                      HadithDetailsScreen.routeName,
                                       arguments: model,
                                     );
                                   },
@@ -72,7 +72,7 @@ class _HadethTabState extends State<HadethTab> {
                                       maxLines: 8,
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
-                                      style: AppStyle.bodyStyle?.copyWith(
+                                      style: AppStyle.bodyStyle.copyWith(
                                         fontSize: 24,
                                         color: Colors.black,
                                       ),
