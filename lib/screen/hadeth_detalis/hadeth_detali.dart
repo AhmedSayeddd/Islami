@@ -3,10 +3,10 @@ import 'package:islami/core/app_colors.dart';
 import 'package:islami/core/app_style.dart';
 import 'package:islami/models/hadeth_model.dart';
 
-class HadethDetails extends StatelessWidget {
-  static const String routeName = "HadithDetails";
+class HadithDetailsScreen extends StatelessWidget {
+  static const String routeName = "HadithDetailsScreen";
 
-  const HadethDetails({super.key});
+  const HadithDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
