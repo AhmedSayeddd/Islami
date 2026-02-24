@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:islami/core/app_colors.dart';
 import 'package:islami/core/app_style.dart';
+import 'package:islami/core/cache_helper.dart';
 import 'package:islami/screen/home/home_screen.dart';
 
 // ignore: must_be_immutable
@@ -80,10 +81,14 @@ class IntroductionScreens extends StatelessWidget {
       showBackButton: true,
       back: const Text("Back", style: AppStyle.btn),
       done: const Text("Done", style: AppStyle.btn),
-      onDone: () {
+      onDone: () async {
+        await CacheHelper().saveBool('introduction', true);
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacementNamed(context, HomeScreen.routeName);
       },
-      onSkip: () {
+      onSkip: () async {
+        await CacheHelper().saveBool('introduction', true);
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacementNamed(context, HomeScreen.routeName);
       },
     );

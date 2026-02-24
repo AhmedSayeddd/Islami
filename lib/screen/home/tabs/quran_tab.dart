@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:islami/core/app_colors.dart';
+import 'package:islami/core/cache_helper.dart';
 import 'package:islami/models/suar_model.dart';
 import 'package:islami/screen/home/widget/recently_itam.dart';
 import 'package:islami/screen/home/widget/sura_itam.dart';
+import 'package:islami/screen/sura_details/sura_details_screen.dart';
 
 // ignore: must_be_immutable
-class QuranTab extends StatelessWidget {
+class QuranTab extends StatefulWidget {
   QuranTab({super.key});
+
+  @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
+  @override
+  void initState() {
+    super.initState();
+    createSuraList();
+    filteredSuras = allSuras;
+  }
 
   List<String> surasName = [
     "الفاتحه",
@@ -124,6 +138,7 @@ class QuranTab extends StatelessWidget {
     "الفلق",
     "الناس",
   ];
+
   List<String> surasNameEnglish = [
     "Al-Fatihah",
     "Al-Baqarah",
@@ -240,6 +255,7 @@ class QuranTab extends StatelessWidget {
     "Al-Falaq",
     "An-Nas",
   ];
+
   List<int> surasVersesCount = [
     7,
     286,
@@ -356,8 +372,44 @@ class QuranTab extends StatelessWidget {
     5,
     6,
   ];
+
+  List<SuraModel> allSuras = [];
+
+  List<SuraModel> filteredSuras = [];
+
+  void createSuraList() {
+    for (int i = 0; i < surasName.length; i++) {
+      allSuras.add(
+        SuraModel(
+          verses: surasVersesCount[i].toString(),
+          nameAr: surasName[i],
+          nameEn: surasNameEnglish[i],
+          index: i + 1,
+        ),
+      );
+    }
+  }
+
+  TextEditingController searchController = TextEditingController();
+
+  void filterSuras(String query) {
+    if (query.isEmpty) {
+      filteredSuras = allSuras;
+    } else {
+      // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+      filteredSuras = allSuras.where((SuraModel) {
+        return SuraModel.nameAr.contains(query) ||
+            SuraModel.nameEn.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    }
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
+    List<int> displayMostRecent = CacheHelper.getList("items");
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -372,6 +424,8 @@ class QuranTab extends StatelessWidget {
           children: [
             SizedBox(height: 192),
             TextField(
+              controller: searchController,
+              onChanged: (value) => {filterSuras(value)},
               style: TextStyle(
                 fontFamily: "Janna",
                 fontSize: 16,
@@ -404,34 +458,37 @@ class QuranTab extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Text(
-              "Most Recently",
-              style: TextStyle(
-                fontFamily: "Janna",
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.wihte,
+            if (displayMostRecent.isNotEmpty) ...[
+              Text(
+                "Most Recently",
+                style: TextStyle(
+                  fontFamily: "Janna",
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.wihte,
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            SizedBox(
-              height: 155,
-              child: ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(width: 12),
-                itemCount: 10,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return RecentlyItam(
-                    suraModel: SuraModel(
-                      nameAr: surasName[index],
-                      nameEn: surasNameEnglish[index],
-                      verses: surasVersesCount[index].toString(),
-                      index: index + 1,
-                    ),
-                  );
-                },
+              SizedBox(height: 10),
+              SizedBox(
+                height: 155,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(width: 12),
+                  itemCount: displayMostRecent.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return RecentlyItam(
+                      suraModel: SuraModel(
+                        nameAr: surasName[displayMostRecent[index]],
+                        nameEn: surasNameEnglish[displayMostRecent[index]],
+                        verses: surasVersesCount[displayMostRecent[index]]
+                            .toString(),
+                        index: displayMostRecent[index] + 1,
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
+            ],
             SizedBox(height: 10),
             Text(
               "Suras List",
@@ -455,15 +512,18 @@ class QuranTab extends StatelessWidget {
                   ),
                 ),
 
-                itemCount: surasName.length,
+                itemCount: filteredSuras.length,
                 itemBuilder: (context, index) {
-                  return SuraItam(
-                    suraModel: SuraModel(
-                      nameAr: surasName[index],
-                      nameEn: surasNameEnglish[index],
-                      verses: surasVersesCount[index].toString(),
-                      index: index + 1,
-                    ),
+                  return InkWell(
+                    onTap: () {
+                      CacheHelper.saveList(index);
+                      Navigator.pushNamed(
+                        context,
+                        SuraDetailsScreen.routeName,
+                        arguments: filteredSuras[index],
+                      );
+                    },
+                    child: SuraItam(suraModel: filteredSuras[index]),
                   );
                 },
               ),

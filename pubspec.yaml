@@ -36,7 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_native_splash: ^2.4.7
   introduction_screen: ^4.0.0
+<<<<<<< HEAD
   carousel_slider: ^5.1.2
+=======
+  shared_preferences: ^2.5.4
+>>>>>>> 962221e496c78c8e344426928bdf3f7368b92c67
 
 dev_dependencies:
   flutter_test:
