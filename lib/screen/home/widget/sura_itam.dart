@@ -40,6 +40,7 @@ class SuraItam extends StatelessWidget {
               ),
             ),
             Text(
+              // ignore: prefer_interpolation_to_compose_strings
               suraModel.verses.toString() + " verses",
               style: TextStyle(
                 fontSize: 12,

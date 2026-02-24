@@ -9,8 +9,6 @@ class RecentlyItam extends StatelessWidget {
   SuraModel suraModel;
   @override
   Widget build(BuildContext context) {
-    // You can access suraModel by providing it via the constructor or other means
-    // For now, assuming suraModel is a field of this widget
     return Container(
       width: 283,
       height: 150,
