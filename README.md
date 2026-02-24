@@ -1,16 +1,30 @@
-# islami
+Islami App 🕌
+A comprehensive Islamic application built using Flutter & Dart. This project marks my first major milestone in mobile development, focusing on clean UI and efficient asset management.
 
-A new Flutter project.
+✨ Features
+Quran & Surah List: Displaying all Surahs with their verse counts.
 
-## Getting Started
+Hadith Section: Organized collection of prophetic traditions.
 
-This project is a starting point for a Flutter application.
+Digital Tasbih (Sebha): Interactive counter for Dhikr.
 
-A few resources to get you started if this is your first Flutter project:
+Radio: Integration for Islamic radio stations.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Custom Themes: Support for Light and Dark modes with specialized Islamic aesthetics.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+🛠️ Technologies Used
+Flutter & Dart
+
+Localization: Support for Arabic and English.
+
+Assets: Custom fonts, SVG icons, and themed background images.
+
+UI Design: Implementing custom widgets and layouts.
+
+📸 Screenshots
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5b77a304-8e02-4316-85ea-ae839f9cde42" width="30%" />
+  <img src="https://github.com/user-attachments/assets/22d16f5c-9f52-47e6-ab55-67f204db459b" width="30%" />
+  <img src="https://github.com/user-attachments/assets/5722f371-bd28-4779-bae8-f0995ce313d3" width="30%" />
+</p>
+Developed by Ahmed Sayed
